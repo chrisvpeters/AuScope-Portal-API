@@ -13,7 +13,6 @@ import org.auscope.portal.gsml.TIMAGeosampleFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,7 +53,7 @@ public class TIMAController extends BasePortalController {
      * @return a WFS response converted into CSV
      * @throws Exception
      */
-    @PostMapping("/doTIMAGeoSampleCSVDownload.do")
+    @GetMapping("/doTIMAGeoSampleCSVDownload.do")
     public void doTIMAGeoSampleCSVDownload(@RequestParam(required = false, value = "serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "sampleName") String sampleName,
             @RequestParam(required = false, value = "igsn") String igsn,
@@ -103,7 +102,7 @@ public class TIMAController extends BasePortalController {
      * @return a WFS response converted into CSV
      * @throws Exception
      */
-    @PostMapping("/doSHRIMPGeoSampleCSVDownload.do")
+    @GetMapping("/doSHRIMPGeoSampleCSVDownload.do")
     public void doSHRIMPGeoSampleCSVDownload(@RequestParam(required = false, value = "serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "sampleName") String sampleName,
             @RequestParam(required = false, value = "igsn") String igsn,

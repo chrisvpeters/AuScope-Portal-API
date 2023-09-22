@@ -18,7 +18,6 @@ import org.auscope.portal.core.util.SLDLoader;
 import org.auscope.portal.server.web.service.MineralOccurrenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,7 +74,7 @@ public class EarthResourcesFilterController extends BasePortalController {
      * @param bbox
      * @param maxFeatures
      */
-    @PostMapping("/doMiningActivityFilterStyle.do")
+    @RequestMapping(method = RequestMethod.GET, value = {"/doMiningActivityFilterStyle.do"})
     public void doMiningActivityFilterStyle(
             HttpServletResponse response,
             @RequestParam(required = true, value = "serviceUrl", defaultValue = "") String serviceUrl,
@@ -120,7 +119,7 @@ public class EarthResourcesFilterController extends BasePortalController {
      * @param maxFeatures
      * @throws Exception
      */
-    @PostMapping("/doMineFilterStyle.do")
+    @RequestMapping(method = RequestMethod.GET, value = {"/doMineFilterStyle.do"})
     public void doMineFilterStyle(
             HttpServletResponse response,
             @RequestParam(required = true, value = "serviceUrl", defaultValue = "") String serviceUrl,
@@ -155,7 +154,7 @@ public class EarthResourcesFilterController extends BasePortalController {
      * @param maxFeatures
      * @throws Exception
      */
-    @PostMapping("/getErlMineViewStyle.do")
+    @RequestMapping(method = RequestMethod.GET, value = {"/getErlMineViewStyle.do"})
     public void getErlMineViewStyle(
             HttpServletResponse response,
             @RequestParam(required = false, value = "optionalFilters") String optionalFilters,
@@ -188,7 +187,7 @@ public class EarthResourcesFilterController extends BasePortalController {
      * @param maxFeatures
      * @throws Exception
      */
-    @PostMapping("/getErlMineralOccurrenceViewStyle.do")
+    @RequestMapping(method = RequestMethod.GET, value = {"/getErlMineralOccurrenceViewStyle.do"})
     public void getErlMineralOccurrenceViewStyle(
             HttpServletResponse response,
             @RequestParam(required = false, value = "optionalFilters") String optionalFilters,
@@ -221,7 +220,7 @@ public class EarthResourcesFilterController extends BasePortalController {
      * @param maxFeatures
      * @throws Exception
      */
-    @PostMapping("/getErlCommodityResourceViewStyle.do")
+    @RequestMapping(method = RequestMethod.GET, value = {"/getErlCommodityResourceViewStyle.do"})
     public void getErlCommodityResourceViewStyle(
             HttpServletResponse response,
             @RequestParam(required = false, value = "optionalFilters") String optionalFilters,
@@ -256,7 +255,7 @@ public class EarthResourcesFilterController extends BasePortalController {
      *
      * @throws Exception
      */
-    @PostMapping("/doMineralOccurrenceFilterStyle.do")
+    @RequestMapping(method = RequestMethod.GET, value = {"/doMineralOccurrenceFilterStyle.do"})
     public void doMineralOccurrenceFilterStyle(
             HttpServletResponse response,
             @RequestParam(required = true, value = "serviceUrl", defaultValue = "") String serviceUrl,
@@ -297,7 +296,7 @@ public class EarthResourcesFilterController extends BasePortalController {
      *
      * @throws Exception
      */
-    @PostMapping("/doMinOccurViewFilterStyle.do")
+    @RequestMapping(method = RequestMethod.GET, value = {"/doMinOccurViewFilterStyle.do"})
     public void doMinOccurViewFilterStyle(
             HttpServletResponse response,
             @RequestParam(required = true, value = "serviceUrl", defaultValue = "") String serviceUrl,
