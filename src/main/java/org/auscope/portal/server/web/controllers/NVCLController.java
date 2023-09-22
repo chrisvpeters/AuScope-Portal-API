@@ -48,7 +48,6 @@ import org.auscope.portal.server.web.service.SF0BoreholeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -338,7 +337,7 @@ public class NVCLController extends BasePortalController {
      *            The dataset to download
      * @return
      */
-    @PostMapping("getNVCL2_0_CSVDownload.do")
+    @GetMapping("getNVCL2_0_CSVDownload.do")
     public void getNVCL2_0_CSVDownload(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("logIds") String[] logIds,
             HttpServletResponse response) throws Exception {
@@ -496,7 +495,7 @@ public class NVCLController extends BasePortalController {
      *            [Optional] yes or no. If no then the map pictures are not downloaded. The default is yes.
      * @return
      */
-    @PostMapping("getNVCLTSGDownload.do")
+    @GetMapping("getNVCLTSGDownload.do")
     public void getNVCLTSGDownload(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("email") String email,
             @RequestParam(required = false, value = "datasetId") String datasetId,
@@ -548,7 +547,7 @@ public class NVCLController extends BasePortalController {
      *            The user's email address
      * @return
      */
-    @PostMapping("getNVCLTSGDownloadStatus.do")
+    @GetMapping("getNVCLTSGDownloadStatus.do")
     public void getNVCLTSGDownloadStatus(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("email") String email,
             HttpServletResponse response) throws Exception {
@@ -856,7 +855,7 @@ public class NVCLController extends BasePortalController {
      * @param email
      * @throws Exception
      */
-    @PostMapping("/downloadTsgFiles.do")
+    @GetMapping("/downloadTsgFiles.do")
     public void downloadTsgFiles(
             @RequestParam("serviceUrls") final String[] serviceUrls,
             @RequestParam(required = false, value = "email", defaultValue = "") final String email,
@@ -943,7 +942,7 @@ public class NVCLController extends BasePortalController {
      * @param email
      * @throws Exception
      */
-    @PostMapping("/downloadNvclCSV.do")
+    @GetMapping("/downloadNvclCSV.do")
     public void downloadNvclCSV(
             @RequestParam("serviceUrls") final String[] serviceUrls,
             HttpServletResponse response) throws Exception {

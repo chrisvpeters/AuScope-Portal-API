@@ -28,7 +28,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -115,7 +114,7 @@ public class MSCLController extends BasePortalController {
      * @return A ModelAndView object encapsulating the data series to plot along with an indicator of success or failure.
      * @throws Exception
      */
-    @PostMapping("/getMsclObservationsForGraph.do")
+    @GetMapping("/getMsclObservationsForGraph.do")
     public ModelAndView getMsclObservationsForGraph(
             @RequestParam("serviceUrl") final String serviceUrl,
             @RequestParam("boreholeHeaderId") final String boreholeHeaderId,
