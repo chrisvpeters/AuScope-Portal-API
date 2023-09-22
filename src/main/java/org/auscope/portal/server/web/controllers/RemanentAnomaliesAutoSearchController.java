@@ -11,18 +11,13 @@ import org.auscope.portal.core.util.FileIOUtil;
 import org.auscope.portal.server.web.service.RemanentAnomaliesAutoSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 /*
  *  Controller for the Remanent Anomalies AutoSearch service
  */
-@RestController
-@SecurityRequirement(name = "public")
+@Controller
 public class RemanentAnomaliesAutoSearchController extends BasePortalController {
     private RemanentAnomaliesAutoSearchService remanentAnomaliesAutoSearchService;
 
@@ -42,7 +37,7 @@ public class RemanentAnomaliesAutoSearchController extends BasePortalController 
      *            URL for remanent anomalies auto search service
      * @throws Exception
      */
-    @GetMapping("/getRemanentAnomaliesAutoSearchStyle.do")
+    @RequestMapping("/getRemanentAnomaliesAutoSearchStyle.do")
     public void doRemanentAnomaliesAutoSearchStyle(
             @RequestParam(required = false, value = "serviceUrl") String serviceUrl,
             HttpServletResponse response) throws Exception {

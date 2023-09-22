@@ -61,14 +61,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 
 /**
@@ -79,8 +75,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
  * @author Josh Vote
  * @author Richard Goh
  */
-@RestController
-@SecurityRequirement(name = "internal")
+@Controller
 public class JobListController extends BaseCloudController  {
 
     /** The name of the log file that the job will use*/
@@ -169,7 +164,7 @@ public class JobListController extends BaseCloudController  {
      * @return A JSON object with a success attribute and an error attribute
      *         in case the job was not found or can not be deleted.
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/deleteJob.do"})
+    @RequestMapping("/secure/deleteJob.do")
     public ModelAndView deleteJob(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam("jobId") Integer jobId) {
@@ -207,7 +202,7 @@ public class JobListController extends BaseCloudController  {
      *         in case the series was not found in the job manager.
      * @throws PortalServiceException
      */
-    @RequestMapping(method = RequestMethod.DELETE, value = {"/secure/deleteSeriesJobs.do"})
+    @RequestMapping("/secure/deleteSeriesJobs.do")
     public ModelAndView deleteSeriesJobs(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam("seriesId") Integer seriesId) throws PortalServiceException {
@@ -279,7 +274,7 @@ public class JobListController extends BaseCloudController  {
      * @return A JSON object with a success attribute and an error attribute
      *         in case the job was not found in the job manager.
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/killJob.do"})
+    @RequestMapping("/secure/killJob.do")
     public ModelAndView killJob(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam("jobId") Integer jobId) {
@@ -365,7 +360,7 @@ public class JobListController extends BaseCloudController  {
      *         in case the series was not found in the job manager.
      * @throws PortalServiceException
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/killSeriesJobs.do"})
+    @RequestMapping("/secure/killSeriesJobs.do")
     public ModelAndView killSeriesJobs(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam("seriesId") Integer seriesId) throws PortalServiceException {
@@ -410,7 +405,7 @@ public class JobListController extends BaseCloudController  {
      * @param jobId
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/getCloudFileMetadata.do"})
+    @RequestMapping("/secure/getCloudFileMetadata.do")
     public ModelAndView getCloudFileMetadata(@RequestParam("jobId") Integer jobId,
             @RequestParam("fileName") String fileName) {
     	PortalUser user = userService.getLoggedInUser();
@@ -448,7 +443,7 @@ public class JobListController extends BaseCloudController  {
      *         manager the JSON object will contain an error attribute
      *         indicating the error.
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/jobCloudFiles.do"})
+    @RequestMapping("/secure/jobCloudFiles.do")
     public ModelAndView jobCloudFiles(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam("jobId") Integer jobId) {
@@ -482,7 +477,7 @@ public class JobListController extends BaseCloudController  {
      * @param jobId
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/jobCloudDirectoriesAndFiles.do"})
+    @RequestMapping("/secure/jobCloudDirectoriesAndFiles.do")
     public ModelAndView jobCloudDirectoriesAndFiles(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam("jobId") Integer jobId) {
@@ -519,7 +514,7 @@ public class JobListController extends BaseCloudController  {
      * @return null on success or the joblist view with an error parameter on
      *         failure.
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/downloadFile.do"})
+    @RequestMapping("/secure/downloadFile.do")
     public ModelAndView downloadFile(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam("jobId") Integer jobId,
@@ -573,7 +568,7 @@ public class JobListController extends BaseCloudController  {
      * @return null on success or the joblist view with an error parameter on
      *         failure.
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/downloadAsZip.do"})
+    @RequestMapping("/secure/downloadAsZip.do")
     public ModelAndView downloadAsZip(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam("jobId") Integer jobId,
@@ -654,7 +649,7 @@ public class JobListController extends BaseCloudController  {
      * @return A JSON object with a series attribute which is an array of
      *         VEGLSeries objects matching the criteria.
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/querySeries.do"})
+    @RequestMapping("/secure/querySeries.do")
     public ModelAndView querySeries(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam(required=false, value="qSeriesName") String qName,
@@ -685,7 +680,7 @@ public class JobListController extends BaseCloudController  {
      * @param seriesDescription
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/createFolder.do"})
+    @RequestMapping("/secure/createFolder.do")
     public ModelAndView createFolder(HttpServletRequest request,
             @RequestParam("seriesName") String seriesName,
             @RequestParam("seriesDescription") String seriesDescription) {
@@ -715,7 +710,7 @@ public class JobListController extends BaseCloudController  {
      *         <code>VEGLJob</code> objects.
      * @throws PortalServiceException
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/listJobs.do"})
+    @RequestMapping("/secure/listJobs.do")
     public ModelAndView listJobs(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam("seriesId") Integer seriesId,
@@ -760,7 +755,7 @@ public class JobListController extends BaseCloudController  {
      * @param user
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/setJobFolder.do"})
+    @RequestMapping("/secure/setJobFolder.do")
     public ModelAndView setJobFolder(HttpServletRequest request,
             @RequestParam("jobIds") Integer[] jobIds,
             @RequestParam(required=false, value="seriesId") Integer seriesId) {
@@ -794,7 +789,7 @@ public class JobListController extends BaseCloudController  {
      * @throws PortalServiceException
      *
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/jobsStatuses..do"})
+    @RequestMapping("/secure/jobsStatuses.do")
     public ModelAndView jobStatuses(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam(required=false, value="forceStatusRefresh", defaultValue="false") boolean forceStatusRefresh) throws PortalServiceException {
@@ -840,7 +835,7 @@ public class JobListController extends BaseCloudController  {
      * @throws PortalServiceException
      */
     @SuppressWarnings("unchecked")
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/treeJobs.do"})
+    @RequestMapping("/secure/treeJobs.do")
     public ModelAndView treeJobs(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam(required=false, value="forceStatusRefresh", defaultValue="false") boolean forceStatusRefresh) throws PortalServiceException {
@@ -942,7 +937,7 @@ public class JobListController extends BaseCloudController  {
      *
      * Job downloads will be copied directly (but new IDs minted)
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/copyJobFiles.do"})
+    @RequestMapping("/secure/copyJobFiles.do")
     public ModelAndView copyJobFiles(HttpServletRequest request,
             @RequestParam("targetJobId") Integer targetJobId,
             @RequestParam("sourceJobId") Integer sourceJobId,
@@ -1000,7 +995,7 @@ public class JobListController extends BaseCloudController  {
      * Job files will be duplicated in LOCAL staging only. The files duplicated can be
      * controlled by a list of file names
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/duplicateJob.do"})
+    @RequestMapping("/secure/duplicateJob.do")
     public ModelAndView duplicateJob(HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam("jobId") Integer jobId,
@@ -1080,7 +1075,7 @@ public class JobListController extends BaseCloudController  {
      * @param jobId
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/getSectionedLogs.do"})
+    @RequestMapping("/secure/getSectionedLogs.do")
     public ModelAndView getSectionedLogs(HttpServletRequest request,
             @RequestParam("jobId") Integer jobId,
             @RequestParam(value="file", required=false) String file) {
@@ -1134,7 +1129,7 @@ public class JobListController extends BaseCloudController  {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/getPlaintextPreview.do"})
+    @RequestMapping("/secure/getPlaintextPreview.do")
     public ModelAndView getPlaintextPreview(
             @RequestParam("jobId") Integer jobId,
             @RequestParam("file") String file,
@@ -1171,7 +1166,7 @@ public class JobListController extends BaseCloudController  {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/getImagePreview.do"})
+    @RequestMapping("/secure/getImagePreview.do")
     public void getImagePreview(
             HttpServletResponse response,
             @RequestParam("jobId") Integer jobId,
@@ -1199,7 +1194,7 @@ public class JobListController extends BaseCloudController  {
         }
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/getJSONPreview.do"})
+    @RequestMapping("/secure/getJSONPreview.do")
     public ModelAndView getJSONPreview(
             HttpServletResponse response,
             @RequestParam("jobId") Integer jobId,
@@ -1260,7 +1255,7 @@ public class JobListController extends BaseCloudController  {
      * @param user
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/secure/getAuditLogsForJob.do"})
+    @RequestMapping("/secure/getAuditLogsForJob.do")
     public ModelAndView getAuditLogsForJob(@RequestParam("jobId") Integer jobId) {
     	PortalUser user = userService.getLoggedInUser();
         VEGLJob job = attemptGetJob(jobId, user);

@@ -12,18 +12,13 @@ import org.auscope.portal.core.util.FileIOUtil;
 import org.auscope.portal.gsml.TIMAGeosampleFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 /**
  * Controller handles mineral data analysis service of certain sites
  */
-@RestController
-@SecurityRequirement(name = "public")
+@Controller
 public class TIMAController extends BasePortalController {
 
     /** Used for making general WFS requests */
@@ -53,7 +48,7 @@ public class TIMAController extends BasePortalController {
      * @return a WFS response converted into CSV
      * @throws Exception
      */
-    @GetMapping("/doTIMAGeoSampleCSVDownload.do")
+    @RequestMapping("/doTIMAGeoSampleCSVDownload.do")
     public void doTIMAGeoSampleCSVDownload(@RequestParam(required = false, value = "serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "sampleName") String sampleName,
             @RequestParam(required = false, value = "igsn") String igsn,
@@ -102,7 +97,7 @@ public class TIMAController extends BasePortalController {
      * @return a WFS response converted into CSV
      * @throws Exception
      */
-    @GetMapping("/doSHRIMPGeoSampleCSVDownload.do")
+    @RequestMapping("/doSHRIMPGeoSampleCSVDownload.do")
     public void doSHRIMPGeoSampleCSVDownload(@RequestParam(required = false, value = "serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "sampleName") String sampleName,
             @RequestParam(required = false, value = "igsn") String igsn,

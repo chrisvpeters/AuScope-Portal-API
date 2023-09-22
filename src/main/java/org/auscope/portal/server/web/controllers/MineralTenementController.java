@@ -19,18 +19,13 @@ import org.auscope.portal.server.MineralTenementServiceProviderType;
 import org.auscope.portal.server.web.service.MineralTenementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 /*
  * Controller for Mineral Tenement services
  */
-@RestController
-@SecurityRequirement(name = "public")
+@Controller
 public class MineralTenementController extends BasePortalController {
 
     private MineralTenementService mineralTenementService;
@@ -74,7 +69,7 @@ public class MineralTenementController extends BasePortalController {
      * @return mineral tenement features in CSV format
      * @throws Exception
      */
-    @GetMapping("/doMineralTenementCSVDownload.do")
+    @RequestMapping("/doMineralTenementCSVDownload.do")
     public void doMineralTenementCSVDownload(
             @RequestParam("serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "name") String name,
@@ -147,7 +142,7 @@ public class MineralTenementController extends BasePortalController {
      * @return xml stylesheet
      * @throws Exception
      */
-    @GetMapping("/getMineralTenementStyle.do")
+    @RequestMapping("/getMineralTenementStyle.do")
     public void doMineFilterStyle(
             @RequestParam(required = false, value = "serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "ccProperty", defaultValue="") String ccProperty,

@@ -21,20 +21,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 /**
  * A controller class for handling the creation of ERRDAP and other download requests
  * @author Josh Vote
  *
  */
-@RestController
-@SecurityRequirement(name = "public")
+@Controller
 public class JobDownloadController extends BasePortalController {
 
     /**
@@ -97,7 +92,7 @@ public class JobDownloadController extends BasePortalController {
      * is true the download object will also be saved to the session wide SESSION_DOWNLOAD_LIST list.
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/makeDownloadUrl.do"})
+    @RequestMapping("/makeDownloadUrl.do")
     public ModelAndView makeDownloadUrl(@RequestParam("url") String url,
             @RequestParam("name") String name,
             @RequestParam("description") String description,
@@ -141,7 +136,7 @@ public class JobDownloadController extends BasePortalController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/makeErddapUrl.do"}) // todo: RequestMethod.PUT
+    @RequestMapping("/makeErddapUrl.do")
     public ModelAndView makeErddapUrl(@RequestParam("northBoundLatitude") final Double northBoundLatitude,
                                 @RequestParam("eastBoundLongitude") final Double eastBoundLongitude,
                                 @RequestParam("southBoundLatitude") final Double southBoundLatitude,
@@ -193,7 +188,7 @@ public class JobDownloadController extends BasePortalController {
      * @throws Exception
      */
 
-    @RequestMapping(method = RequestMethod.GET, value = {"/makeNetcdfsubseserviceUrl.do"}) // todo: RequestMethod.PUT
+    @RequestMapping("/makeNetcdfsubseserviceUrl.do")
     public ModelAndView makeNetcdfsubsetserviceUrl(@RequestParam("url") String url,
                                 @RequestParam("northBoundLatitude") final Double northBoundLatitude,
                                 @RequestParam("eastBoundLongitude") final Double eastBoundLongitude,
@@ -246,7 +241,7 @@ public class JobDownloadController extends BasePortalController {
      * @param featureType The feature type name to query
      * @param maxFeatures [Optional] The maximum number of features to query
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/makeWfsUrl.do"}) // todo: RequestMethod.PUT
+    @RequestMapping("/makeWfsUrl.do")
     public ModelAndView makeWfsUrl(@RequestParam("serviceUrl") final String serviceUrl,
                                            @RequestParam("featureType") final String featureType,
                                            @RequestParam(required = false, value = "srsName") final String srsName,
@@ -331,7 +326,7 @@ public class JobDownloadController extends BasePortalController {
      * @param request
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/makeWcsUrl.do"}) // todo: RequestMethod.PUT
+    @RequestMapping("/makeWcsUrl.do")
     public ModelAndView makeWcsUrl(@RequestParam("serviceUrl") final String serviceUrl,
                                    @RequestParam("coverageName") final String coverageName,
                                    @RequestParam(required = false, value = "format") final String format,
@@ -401,7 +396,7 @@ public class JobDownloadController extends BasePortalController {
      * @param request The servlet request with query parameters
      * @return number of download requests in user session.
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/getNumDownloadRequests.do"}) // todo: RequestMethod.PUT
+    @RequestMapping("/getNumDownloadRequests.do")
     public ModelAndView getNumDownloadRequests(HttpServletRequest request) {
         int size = 0;
         List<?> downloadList = (List<?>)request.getSession().getAttribute(SESSION_DOWNLOAD_LIST);

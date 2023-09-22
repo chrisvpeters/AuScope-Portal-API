@@ -47,13 +47,10 @@ import org.auscope.portal.server.web.service.NVCLDataService;
 import org.auscope.portal.server.web.service.SF0BoreholeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -68,8 +65,7 @@ import org.auscope.portal.core.server.http.download.ServiceDownloadManager;
  * @author Josh Vote
  *
  */
-@RestController
-@SecurityRequirement(name = "public")
+@Controller
 public class NVCLController extends BasePortalController {
 
     private BoreholeService boreholeService;
@@ -162,7 +158,7 @@ public class NVCLController extends BasePortalController {
      *            The unique ID of a borehole
      * @return
      */
-    @GetMapping("getNVCLDatasets.do")
+    @RequestMapping("getNVCLDatasets.do")
     public ModelAndView getNVCLDatasets(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("holeIdentifier") String holeIdentifier) {
         List<GetDatasetCollectionResponse> responseObjs = null;
@@ -187,7 +183,7 @@ public class NVCLController extends BasePortalController {
      *            The unique ID of a dataset
      * @return
      */
-    @GetMapping("getNVCLLogs.do")
+    @RequestMapping("getNVCLLogs.do")
     public ModelAndView getNVCLLogs(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("datasetId") String datasetId,
             @RequestParam(required = false, value = "mosaicService") Boolean forMosaicService) {
@@ -213,7 +209,7 @@ public class NVCLController extends BasePortalController {
      *            The unique ID of a dataset
      * @return
      */
-    @GetMapping("getNVCL2_0_Logs.do")
+    @RequestMapping("getNVCL2_0_Logs.do")
     public ModelAndView getNVCL2_0_Logs(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("datasetId") String datasetId,
             @RequestParam(required = false, value = "mosaicService") Boolean forMosaicService) {
@@ -260,7 +256,7 @@ public class NVCLController extends BasePortalController {
      *            The unique ID of a log (from a getNVCLLogs.do request)
      * @return
      */
-    @GetMapping("getNVCLMosaic.do")
+    @RequestMapping("getNVCLMosaic.do")
     public void getNVCLMosaic(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("logId") String logId,
             @RequestParam(required = false, value = "width") Integer width,
@@ -291,7 +287,7 @@ public class NVCLController extends BasePortalController {
      *            The unique ID of a log (from a getNVCLLogs.do request)
      * @return
      */
-    @GetMapping("getNVCL2_0_Thumbnail.do")
+    @RequestMapping("getNVCL2_0_Thumbnail.do")
     public void getNVCL2_0_Thumbnail(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("dataSetId") String dataSetId,
             @RequestParam("logId") String logId,
@@ -337,7 +333,7 @@ public class NVCLController extends BasePortalController {
      *            The dataset to download
      * @return
      */
-    @GetMapping("getNVCL2_0_CSVDownload.do")
+    @RequestMapping("getNVCL2_0_CSVDownload.do")
     public void getNVCL2_0_CSVDownload(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("logIds") String[] logIds,
             HttpServletResponse response) throws Exception {
@@ -378,7 +374,7 @@ public class NVCLController extends BasePortalController {
      *            The dataset to download
      * @return
      */
-    @GetMapping("getNVCL2_0_JSONDataBinned.do")
+    @RequestMapping("getNVCL2_0_JSONDataBinned.do")
     public ModelAndView getNVCL2_0_JSONDataBinned(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("logIds") String[] logIds) throws Exception {
 
@@ -401,7 +397,7 @@ public class NVCLController extends BasePortalController {
      * @param boreholeId
      *          borehole id of data to be downloaded
      */
-    @GetMapping("getNVCL2_0_JobsScalarBinned.do")
+    @RequestMapping("getNVCL2_0_JobsScalarBinned.do")
     public ModelAndView getNVCL2_0_JobsScalarBinned(@RequestParam("jobIds") String[] jobIds, @RequestParam("boreholeId") String boreholeId) {
         
         //Make our request
@@ -427,7 +423,7 @@ public class NVCLController extends BasePortalController {
      *
      * @return
      */
-    @GetMapping("getNVCL2_0_MineralColourTable.do")
+    @RequestMapping("getNVCL2_0_MineralColourTable.do")
     public ModelAndView getNVCL2_0_MineralColourTable(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("logIds") String[] logIds) throws Exception {
         //Make our request
@@ -452,7 +448,7 @@ public class NVCLController extends BasePortalController {
      *
      * @return
      */
-    @GetMapping("getNVCL2_0_TsgJobsByBoreholeId.do")
+    @RequestMapping("getNVCL2_0_TsgJobsByBoreholeId.do")
     public ModelAndView getNVCL2_0_TsgJobsByBoreholeId(@RequestParam("boreholeId") String boreholeId,
             @RequestParam(required = false, value = "email") String email) throws Exception {
         //Make our request
@@ -495,7 +491,7 @@ public class NVCLController extends BasePortalController {
      *            [Optional] yes or no. If no then the map pictures are not downloaded. The default is yes.
      * @return
      */
-    @GetMapping("getNVCLTSGDownload.do")
+    @RequestMapping("getNVCLTSGDownload.do")
     public void getNVCLTSGDownload(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("email") String email,
             @RequestParam(required = false, value = "datasetId") String datasetId,
@@ -547,7 +543,7 @@ public class NVCLController extends BasePortalController {
      *            The user's email address
      * @return
      */
-    @GetMapping("getNVCLTSGDownloadStatus.do")
+    @RequestMapping("getNVCLTSGDownloadStatus.do")
     public void getNVCLTSGDownloadStatus(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("email") String email,
             HttpServletResponse response) throws Exception {
@@ -591,7 +587,7 @@ public class NVCLController extends BasePortalController {
      *            The URL of the NVCLDataService
      * @return
      */
-    @GetMapping("getTsgAlgorithms.do")
+    @RequestMapping("getTsgAlgorithms.do")
     public ModelAndView getTsgAlgorithms(@RequestParam("tsgAlgName") String tsgAlgName) throws Exception {
         try {
             String algorithms = dataService2_0.getTsgAlgorithms(tsgAlgName);
@@ -609,7 +605,7 @@ public class NVCLController extends BasePortalController {
      *            The URL of the NVCLDataService
      * @return
      */
-    @GetMapping("getNVCLAlgorithms.do")
+    @RequestMapping("getNVCLAlgorithms.do")
     public ModelAndView getNVCLWFSDownloadStatus(@RequestParam("serviceUrl") String serviceUrl) throws Exception {
         try {
             List<AlgorithmOutputResponse> algorithms = dataService2_0.getAlgorithms(serviceUrl);
@@ -627,7 +623,7 @@ public class NVCLController extends BasePortalController {
      *            The URL of the NVCLDataService
      * @return
      */
-    @GetMapping("getNVCLClassifications.do")
+    @RequestMapping("getNVCLClassifications.do")
     public ModelAndView getNVCLWFSDownloadStatus(
             @RequestParam("serviceUrl") String serviceUrl,
             @RequestParam("algorithmOutputId") String[] algorithmOutputIdStrings) throws Exception {
@@ -652,7 +648,7 @@ public class NVCLController extends BasePortalController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/submitSF0NVCLProcessingJob.do")
+    @RequestMapping("/submitSF0NVCLProcessingJob.do")
     public ModelAndView submitSF0NVCLProcessingJob(
             @RequestParam("email") String email,
             @RequestParam("jobName") String jobName,
@@ -705,7 +701,7 @@ public class NVCLController extends BasePortalController {
      * @return
      * @throws Exception
      */
-    @GetMapping("/submitSF0NVCLProcessingTsgJob.do")
+    @RequestMapping("/submitSF0NVCLProcessingTsgJob.do")
     public ModelAndView submitSF0NVCLProcessingTsgJob(
             @RequestParam("email") String email,
             @RequestParam("jobName") String jobName,
@@ -752,7 +748,7 @@ public class NVCLController extends BasePortalController {
      * @param email
      * @return
      */
-    @GetMapping("/checkNVCLProcessingJob.do")
+    @RequestMapping("/checkNVCLProcessingJob.do")
     public ModelAndView checkNVCLProcessingJob(@RequestParam("email") String email) {
         try {
             List<AnalyticalJobStatus> statuses = this.dataService2_0.checkProcessingJobs(email);
@@ -770,7 +766,7 @@ public class NVCLController extends BasePortalController {
      *            requested job id
      * @return
      */
-    @GetMapping("/getNVCLProcessingResults.do")
+    @RequestMapping("/getNVCLProcessingResults.do")
     public ModelAndView getNVCLProcessingResults(@RequestParam("jobId") String jobId) {
         try {
             AnalyticalJobResults results = this.dataService2_0.getProcessingResults(jobId);
@@ -790,7 +786,7 @@ public class NVCLController extends BasePortalController {
      * @param returns results as a byte stream encoded in zip format, containing csv files
      * @throws Exception
      */     
-    @GetMapping("/downloadNVCLProcessingResults.do")
+    @RequestMapping("/downloadNVCLProcessingResults.do")
     public void downloadNVCLProcessingResults(@RequestParam("jobId") String jobId, HttpServletResponse response) throws Exception {
         AnalyticalJobResults results = this.dataService2_0.getProcessingResults(jobId);
 
@@ -835,7 +831,7 @@ public class NVCLController extends BasePortalController {
      * @return JSON struct of image tray depths
      * @throws Exception
      */
-    @GetMapping("/getNVCLImageTrayDepth.do")
+    @RequestMapping("/getNVCLImageTrayDepth.do")
     public ModelAndView getNVCLImageTrayDepth(@RequestParam("serviceUrl") String serviceUrl, @RequestParam("logid") String logId) throws Exception {
         try {
             List<ImageTrayDepthResponse> results = this.dataService2_0.getImageTrayDepths(serviceUrl,logId);
@@ -855,7 +851,7 @@ public class NVCLController extends BasePortalController {
      * @param email
      * @throws Exception
      */
-    @GetMapping("/downloadTsgFiles.do")
+    @RequestMapping("/downloadTsgFiles.do")
     public void downloadTsgFiles(
             @RequestParam("serviceUrls") final String[] serviceUrls,
             @RequestParam(required = false, value = "email", defaultValue = "") final String email,
@@ -923,7 +919,7 @@ public class NVCLController extends BasePortalController {
      * @param response
      * @throws Exception
      */
-    @GetMapping("/isTSGDownloadAvailable.do")
+    @RequestMapping("/isTSGDownloadAvailable.do")
     public ModelAndView isTSGDownloadAvailable() throws Exception {
        String url = this.dataService.getTsgFileCacheUrl();
        String msg = this.dataService.getTsgDownloadServiceMsg();
@@ -942,7 +938,7 @@ public class NVCLController extends BasePortalController {
      * @param email
      * @throws Exception
      */
-    @GetMapping("/downloadNvclCSV.do")
+    @RequestMapping("/downloadNvclCSV.do")
     public void downloadNvclCSV(
             @RequestParam("serviceUrls") final String[] serviceUrls,
             HttpServletResponse response) throws Exception {

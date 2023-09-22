@@ -16,27 +16,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.tags.Tag;
-
 /*
  * Controller enables loading of KML layers onto map
  */
 
-@RestController
-@SecurityRequirement(name = "public")
+@Controller
 public class CustomKMLController extends BasePortalController {
     FileDownloadService fileDownloadService;
 
@@ -51,7 +43,7 @@ public class CustomKMLController extends BasePortalController {
      * @return KML data which can be loaded as a layer
      * @throws Exception
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/addKMLLayer.do"})
+    @RequestMapping("/addKMLLayer.do")
     public @ResponseBody String addKMLLayer(FileUploadBean uploadItem, BindingResult result,
             HttpServletResponse response) {
         try {
@@ -67,7 +59,7 @@ public class CustomKMLController extends BasePortalController {
             return new Gson().toJson(model);
         }
     }
-    
+
     /**
      * Retrieves KML from the given URL
      *
@@ -76,7 +68,7 @@ public class CustomKMLController extends BasePortalController {
      * @return KML data which can be loaded as a layer
      * @throws Exception
      */
-    @RequestMapping(method = RequestMethod.GET, value = {"/addKMLUrl.do"})
+    @RequestMapping("/addKMLUrl.do")
     public ModelAndView addKMLUrl(
             @RequestParam("url") String url,
             HttpServletResponse response) throws IOException {

@@ -4,12 +4,8 @@ import org.auscope.portal.core.server.controllers.BasePortalController;
 import org.auscope.portal.core.services.VocabularyCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import org.apache.jena.rdf.model.Model;
 
@@ -18,8 +14,7 @@ import java.util.Map;
 /**
  * Controller for cached vocabulary
  */
-@RestController
-@SecurityRequirement(name = "public")
+@Controller
 public class VocabularyCacheController extends BasePortalController {
 
     private VocabularyCacheService vocabularyCacheService;
@@ -36,7 +31,7 @@ public class VocabularyCacheController extends BasePortalController {
      *
      * @return
      */
-    @GetMapping("/getVocabularies.do")
+    @RequestMapping("/getVocabularies.do")
     public ModelAndView getVocabularies() {
     	 Map<String, Model> vocabularyCache = this.vocabularyCacheService.getVocabularyCache();
          return generateJSONResponseMAV(true, vocabularyCache, "success");
@@ -48,7 +43,7 @@ public class VocabularyCacheController extends BasePortalController {
      *
      * @return
      */
-    @GetMapping("updateVocabularyCache.do")
+    @RequestMapping("updateVocabularyCache.do")
     public ModelAndView updateVocabularyCache() {
         try {
             this.vocabularyCacheService.updateCache();

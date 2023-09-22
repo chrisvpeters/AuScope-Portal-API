@@ -18,8 +18,6 @@ import javax.xml.xpath.XPathFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-
 import org.auscope.portal.core.server.controllers.BasePortalController;
 import org.auscope.portal.core.services.namespaces.IterableNamespace;
 import org.auscope.portal.core.services.responses.ows.OWSExceptionParser;
@@ -27,10 +25,8 @@ import org.auscope.portal.mscl.MSCLWFSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -43,8 +39,7 @@ import org.w3c.dom.NodeList;
  * @author bro879
  * 
  */
-@RestController
-@SecurityRequirement(name = "public")
+@Controller
 public class MSCLController extends BasePortalController {
 
     /**
@@ -75,7 +70,7 @@ public class MSCLController extends BasePortalController {
      * @return A ModelAndView object encapsulating the WFS response along with an indicator of success or failure.
      * @throws Exception
      */
-    @GetMapping("/getMsclObservations.do")
+    @RequestMapping("/getMsclObservations.do")
     public ModelAndView getMsclObservations(
             @RequestParam("serviceUrl") final String serviceUrl,
             @RequestParam("typeName") final String featureType,
@@ -114,7 +109,7 @@ public class MSCLController extends BasePortalController {
      * @return A ModelAndView object encapsulating the data series to plot along with an indicator of success or failure.
      * @throws Exception
      */
-    @GetMapping("/getMsclObservationsForGraph.do")
+    @RequestMapping("/getMsclObservationsForGraph.do")
     public ModelAndView getMsclObservationsForGraph(
             @RequestParam("serviceUrl") final String serviceUrl,
             @RequestParam("boreholeHeaderId") final String boreholeHeaderId,
