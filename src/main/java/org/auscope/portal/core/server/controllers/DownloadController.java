@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.List;
 import java.util.stream.Stream;
 import java.net.URL;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.io.UnsupportedEncodingException;
 import java.io.IOException;
@@ -69,10 +68,6 @@ import org.auscope.portal.core.services.PortalServiceException;
 
 @Controller
 public class DownloadController extends BasePortalController {
-	
-    // Special handling required for this WMS http://geoscience.nt.gov.au/erdas-iws/ogc/wms/
-    private final static String ERDAS_Domain="geoscience.nt.gov.au";
-    private final static String ERDAS_PathName="erdas-iws";
 
     private final Log logger = LogFactory.getLog(getClass());
     // Minimum number of lines we expect a download to be (header file plus at least one data row)
@@ -287,7 +282,7 @@ public class DownloadController extends BasePortalController {
             @RequestParam(required = false, value = "usepostafterproxy", defaultValue = "false") boolean usePost,
             @RequestParam(required = false, value = "usegetafterproxy", defaultValue = "false") boolean useGet,
             @RequestParam(required = false, value = "usewhitelist", defaultValue = "true") boolean useWhitelist,
-            @RequestParam(required = false, value = "erdas", defaultValue = "") String isERDAS_WMS) // is it an ERDAS APOLLO WMS, eg NT or TAS
+            @RequestParam(required = false, value = "erdas", defaultValue = "") String isERDAS_WMS) // is it an ERDAS APOLLO WMS, the version
             		throws PortalServiceException, OperationNotSupportedException, URISyntaxException, IOException {  
         // Check whitelist
     	if (useWhitelist) {
@@ -343,8 +338,8 @@ public class DownloadController extends BasePortalController {
                         if (isERDAS_WMS.length() > 0) { // add params to the url rather than in the body
                             String value = val.toString();
                             String key = entry.getKey().toString();
-                            String delim = "%26"; // default,NT
-                            if (isERDAS_WMS.startsWith("TAS")) { delim = "&"; } 
+                            String delim = "%26"; // default,NT - Essentials 2015
+                            if (isERDAS_WMS.startsWith("Core_2022")) { delim = "&"; }
                             // add params to the url rather than in the body
                             url = url + delim + key+"="+value;
                         }
