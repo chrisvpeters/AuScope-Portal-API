@@ -38,6 +38,7 @@ import org.auscope.portal.core.services.VocabularyFilterService;
 import org.auscope.portal.core.services.WCSService;
 import org.auscope.portal.core.services.WFSService;
 import org.auscope.portal.core.services.WMSService;
+import org.auscope.portal.core.services.WMTSService;
 import org.auscope.portal.core.services.csw.CSWServiceItem;
 import org.auscope.portal.core.services.csw.GriddedCSWRecordTransformerFactory;
 import org.auscope.portal.core.services.csw.ViewGriddedCSWRecordFactory;
@@ -238,14 +239,12 @@ public class AppContext {
         Boolean fileChanged = false;
         
         Yaml yaml = new Yaml();
-        Map<String, Object> yamlLayers;
-        
         try {
             URL yamlUrl = new URI(portalS3Bucket+"/layers.yaml").toURL();
             
             InputStream yamlInputStream = yamlUrl.openStream();
             CheckedInputStream checkedInputStream = new CheckedInputStream(yamlInputStream, new CRC32());
-            yamlLayers = yaml.load(checkedInputStream);
+            yaml.load(checkedInputStream);
             Long checksum = checkedInputStream.getChecksum().getValue();
             Long oldChecksum = layerChecksumService.getChecksum();
 
@@ -319,9 +318,15 @@ public class AppContext {
     }
     
     @Bean
+    public WMTSService wmtsService() {
+        return new WMTSService(httpServiceCallerApp());
+    }
+    
+    @Bean
     public CSWCacheService cswCacheService() {
         CSWCacheService cacheService = new CSWCacheService(
-                taskExecutor(), cswCacheHttpServiceCaller(), cswServiceList, griddedCswTransformerFactory(), elasticsearchService());
+                taskExecutor(), cswCacheHttpServiceCaller(), cswServiceList, griddedCswTransformerFactory(),
+                elasticsearchService(), wmtsService());
         cacheService.setForceGetMethods(true);
         return cacheService;
     }
