@@ -282,8 +282,13 @@ public class DownloadController extends BasePortalController {
             @RequestParam(required = false, value = "usepostafterproxy", defaultValue = "false") boolean usePost,
             @RequestParam(required = false, value = "usegetafterproxy", defaultValue = "false") boolean useGet,
             @RequestParam(required = false, value = "usewhitelist", defaultValue = "true") boolean useWhitelist,
-            @RequestParam(required = false, value = "erdas", defaultValue = "") String isERDAS_WMS) // is it an ERDAS APOLLO WMS, the version
-            		throws PortalServiceException, OperationNotSupportedException, URISyntaxException, IOException {  
+            @RequestParam(required = false, value = "escdelim", defaultValue = "") String escdelim)
+            		throws PortalServiceException, OperationNotSupportedException, URISyntaxException, IOException { 
+        if (escdelim.startsWith("amp")) { 
+            escdelim = "&"; 
+        } else {
+            if (escdelim.startsWith("&")) { escdelim = "%26"; }
+        }
         // Check whitelist
     	if (useWhitelist) {
 	        boolean isTrue = false;
@@ -335,13 +340,11 @@ public class DownloadController extends BasePortalController {
             for (Map.Entry<String, String[]> entry : pMap.entrySet()) {
                 if (!entry.getKey().equalsIgnoreCase("url") && !entry.getKey().equalsIgnoreCase("usewhitelist")) {
                     for(String val: entry.getValue()) {
-                        if (isERDAS_WMS.length() > 0) { // add params to the url rather than in the body
+                        if (escdelim.length() > 0) { // add params to the url rather than in the body
                             String value = val.toString();
                             String key = entry.getKey().toString();
-                            String delim = "%26"; // default,NT - Essentials 2015
-                            if (isERDAS_WMS.startsWith("Core_2022")) { delim = "&"; }
                             // add params to the url rather than in the body
-                            url = url + delim + key+"="+value;
+                            url = url + escdelim + key+"="+value;
                         }
                     }
                 }
