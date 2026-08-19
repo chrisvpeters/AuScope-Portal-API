@@ -279,8 +279,15 @@ public class DownloadController extends BasePortalController {
             HttpServletRequest request,
             @RequestParam("url") String url,
             @RequestParam(required = false, value = "usepostafterproxy", defaultValue = "false") boolean usePost,
-            @RequestParam(required = false, value = "usewhitelist", defaultValue = "true") boolean useWhitelist)
-            		throws PortalServiceException, OperationNotSupportedException, URISyntaxException, IOException {    	
+            @RequestParam(required = false, value = "usegetafterproxy", defaultValue = "false") boolean useGet,
+            @RequestParam(required = false, value = "usewhitelist", defaultValue = "true") boolean useWhitelist,
+            @RequestParam(required = false, value = "escdelim", defaultValue = "") String escdelim)
+            		throws PortalServiceException, OperationNotSupportedException, URISyntaxException, IOException { 
+        if (escdelim.startsWith("amp")) { 
+            escdelim = "&"; 
+        } else {
+            if (escdelim.startsWith("&")) { escdelim = "%26"; }
+        }
         // Check whitelist
     	if (useWhitelist) {
 	        boolean isTrue = false;
@@ -306,7 +313,7 @@ public class DownloadController extends BasePortalController {
 
         // Assemble method depending on the incoming request's method
         HttpRequestBase method;
-        if (request.getMethod().equals("POST") || usePost) {
+        if (!useGet && (request.getMethod().equals("POST") || usePost)) {
             // Use old request parameters to assemble new request
             Map<String, String[]> pMap = request.getParameterMap();
             List<NameValuePair> nvpList = new ArrayList<>(pMap.size());
@@ -328,6 +335,19 @@ public class DownloadController extends BasePortalController {
             ((HttpPost)method).setEntity(entity);
         } else {
             // Use an HTTP GET request
+            Map<String, String[]> pMap = request.getParameterMap();
+            for (Map.Entry<String, String[]> entry : pMap.entrySet()) {
+                if (!entry.getKey().equalsIgnoreCase("url") && !entry.getKey().equalsIgnoreCase("usewhitelist")) {
+                    for(String val: entry.getValue()) {
+                        if (escdelim.length() > 0) { // add params to the url rather than in the body
+                            String value = val.toString();
+                            String key = entry.getKey().toString();
+                            // add params to the url rather than in the body
+                            url = url + escdelim + key+"="+value;
+                        }
+                    }
+                }
+            }    
             method = new HttpGet(url);
         }
         
